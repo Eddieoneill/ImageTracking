@@ -14,10 +14,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
+    var trainNode: SCNNode?
+    var cartNode: SCNNode?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         sceneView.delegate = self
         sceneView.autoenablesDefaultLighting = true
+        let trainScene = SCNScene(named: "art.scnassets/train.scn")
+        let cartScene = SCNScene(named: "art.scnassets/shoppingCart.scn")
+        trainNode = trainScene?.rootNode
+        cartNode = cartScene?.rootNode
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +54,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let planeNode = SCNNode(geometry: plane)
             planeNode.eulerAngles.x = -.pi / 2
             node.addChildNode(planeNode)
+            
+            if let shapeNode = cartNode {
+                node.addChildNode(shapeNode)
+            }
         }
         
         return node
