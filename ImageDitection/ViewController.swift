@@ -55,7 +55,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             planeNode.eulerAngles.x = -.pi / 2
             node.addChildNode(planeNode)
             
-            if let shapeNode = cartNode {
+            if let shapeNode = trainNode {
+                shapeNode.scale.x = shapeNode.scale.x / 7
+                shapeNode.scale.y = shapeNode.scale.y / 7
+                shapeNode.scale.z = shapeNode.scale.z / 7
                 node.addChildNode(shapeNode)
             }
         }
