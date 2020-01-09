@@ -55,11 +55,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             planeNode.eulerAngles.x = -.pi / 2
             node.addChildNode(planeNode)
             
-            if let shapeNode = trainNode {
-                shapeNode.scale.x = shapeNode.scale.x / 7
-                shapeNode.scale.y = shapeNode.scale.y / 7
-                shapeNode.scale.z = shapeNode.scale.z / 7
-                node.addChildNode(shapeNode)
+            if imageAnchor.referenceImage.name == "Metro" {
+                if let shapeNode = trainNode {
+                    shapeNode.scale.x = shapeNode.scale.x / 5
+                    shapeNode.scale.y = shapeNode.scale.y / 5
+                    shapeNode.scale.z = shapeNode.scale.z / 5
+                    node.addChildNode(shapeNode)
+                }
+            } else {
+                if let shapeNode = cartNode {
+                    shapeNode.scale.x = shapeNode.scale.x / 1.5
+                    shapeNode.scale.y = shapeNode.scale.y / 1.5
+                    shapeNode.scale.z = shapeNode.scale.z / 1.5
+                    node.addChildNode(shapeNode)
+                }
             }
         }
         
