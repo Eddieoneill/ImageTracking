@@ -11,7 +11,7 @@ import SceneKit
 import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
-
+    
     @IBOutlet var sceneView: ARSCNView!
     
     var trainNode: SCNNode?
@@ -55,21 +55,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             planeNode.eulerAngles.x = -.pi / 2
             node.addChildNode(planeNode)
             
+            var shapeNode: SCNNode?
             if imageAnchor.referenceImage.name == "Metro" {
-                if let shapeNode = trainNode {
-                    shapeNode.scale.x = shapeNode.scale.x / 5
-                    shapeNode.scale.y = shapeNode.scale.y / 5
-                    shapeNode.scale.z = shapeNode.scale.z / 5
-                    node.addChildNode(shapeNode)
-                }
+                shapeNode = trainNode
+                shapeNode!.scale.x = shapeNode!.scale.x / 5
+                shapeNode!.scale.y = shapeNode!.scale.y / 5
+                shapeNode!.scale.z = shapeNode!.scale.z / 5
+                node.addChildNode(shapeNode!)
             } else {
-                if let shapeNode = cartNode {
-                    shapeNode.scale.x = shapeNode.scale.x / 1.5
-                    shapeNode.scale.y = shapeNode.scale.y / 1.5
-                    shapeNode.scale.z = shapeNode.scale.z / 1.5
-                    node.addChildNode(shapeNode)
-                }
+                shapeNode = cartNode
+                shapeNode!.scale.x = shapeNode!.scale.x / 1.5
+                shapeNode!.scale.y = shapeNode!.scale.y / 1.5
+                shapeNode!.scale.z = shapeNode!.scale.z / 1.5
+                node.addChildNode(shapeNode!)
             }
+            
+            let shapeSpin = SCNAction.rotateBy(x: 0, y: 2 * .pi, z: 0, duration: 10)
+            let repeatSpin = SCNAction.repeatForever(shapeSpin)
+            shapeNode?.runAction(repeatSpin)
         }
         
         return node
