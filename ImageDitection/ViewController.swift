@@ -16,6 +16,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     var trainNode: SCNNode?
     var cartNode: SCNNode?
+    var suchiNode: SCNNode?
+    var imageNodes = [SCNNode]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.autoenablesDefaultLighting = true
         let trainScene = SCNScene(named: "art.scnassets/train.scn")
         let cartScene = SCNScene(named: "art.scnassets/shoppingCart.scn")
+        let suchiScene = SCNScene(named: "art.scnassets/ryan.scn")
+        suchiNode = suchiScene?.rootNode
         trainNode = trainScene?.rootNode
         cartNode = cartScene?.rootNode
     }
@@ -62,7 +66,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 shapeNode!.scale.y = shapeNode!.scale.y / 5
                 shapeNode!.scale.z = shapeNode!.scale.z / 5
                 node.addChildNode(shapeNode!)
-            } else {
+            } else if imageAnchor.referenceImage.name == "traider" {
                 shapeNode = cartNode
                 shapeNode!.scale.x = shapeNode!.scale.x / 1.5
                 shapeNode!.scale.y = shapeNode!.scale.y / 1.5
@@ -73,8 +77,25 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let shapeSpin = SCNAction.rotateBy(x: 0, y: 2 * .pi, z: 0, duration: 10)
             let repeatSpin = SCNAction.repeatForever(shapeSpin)
             shapeNode?.runAction(repeatSpin)
+            imageNodes.append(node)
+            return node
         }
-        
-        return node
+        return nil
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if imageNodes.count == 2 {
+            let positionOne = SCNVector3ToGLKVector3(imageNodes[0].position)
+            let positionTwo = SCNVector3ToGLKVector3(imageNodes[1].position)
+            let distance = GLKVector3Distance(positionOne, positionTwo)
+            let shapeSpin = SCNAction.rotateBy(x: 0, y: 2 * .pi, z: 0, duration: 0.5)
+            let repeatSpin = SCNAction.repeatForever(shapeSpin)
+            
+            if distance < 0.10 {
+                imageNodes[0].runAction(repeatSpin)
+                imageNodes[1].runAction(repeatSpin)
+            }
+            
+        }
     }
 }
