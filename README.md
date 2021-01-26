@@ -1,10 +1,9 @@
 # ImageTracking
 
 ## Description
-
-- This app was created for me to test out how image tracking works.
-- This app will detect a metro card and traider joes gift card and displays associated 3D models to it.
-- I'm currently working on added location tracking and enable to display the 3D model only if the location matches.
+A real-time image tracking AR app that uses the device's camera to bring flat objects in view to life with 4D imagery.
+- Designed with SceneKit in order to detect known images and display the 4D enhancement of the object on the users’ screen.
+- Incorporated MapKit to display the 4D visualizations only at specified locations.
 
 ![ezgif com-optimize](https://user-images.githubusercontent.com/42211866/72081180-01045600-32cc-11ea-928a-5c4bc2d0cf57.gif)
 
